@@ -1,0 +1,47 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id String @id @default(uuid()) //*uuid() gera um id aleatório
+  name String
+  slug String
+  imageUrl String
+  products Product[]
+}
+// No Prisma, um model representa uma estrutura de dados, semelhante a uma tabela em um banco de dados relacional ou a um documento em um banco de dados NoSQL.
+
+// id String @id @default(uuid()): Este campo representa o identificador exclusivo de cada categoria.
+
+// @id: indica que este campo é a chave primária.
+
+// @default(uuid()): especifica que o valor padrão para este campo deve ser gerado usando a uuid()função, que gera um UUID aleatório (Universally
+
+// No Prisma, a @defaultdiretiva é usada para especificar um valor padrão para um campo em um esquema de banco de dados. Esse valor padrão é aplicado quando um novo registro é criado e o campo não recebe explicitamente um valor durante o processo de criação.
+
+model Product {
+  id String @id @default(uuid())
+  name String
+  slug String
+  description String
+  basePrice Decimal @db.Decimal(8, 2)
+  imageUrl String
+  categoryId String
+  category Category @relation(fields: [categoryId], references: [id])
+  discountPercentage Int @default(0)
+}
+// esta @relation directiva define uma relação auto-referencial dentro do Category modelo. O category campo no Category modelo está relacionado ao id campo no mesmo Category modelo. Isto poderia representar um relacionamento hierárquico ou pai-filho entre categorias, onde uma categoria pode ser associada a outra categoria como sua pai.
+
+
+
+
+
+
