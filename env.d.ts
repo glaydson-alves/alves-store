@@ -1,7 +1,7 @@
 declare namespace NodeJS {
-    interface processEnv{
-        DATABASE: string;
-        GOOGLE_CLIENT_ID: string;
-        GOOGLE_CLIENT_SECRET: string;
+    interface ProcessEnv {
+      DATABASE_URL: string;
+      GOOGLE_CLIENT_ID: string;
+      GOOGLE_CLIENT_SECRET: string;
     }
-}
+  }
